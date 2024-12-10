@@ -1,0 +1,67 @@
+﻿@model X.PagedList.IPagedList<sportLeague.Models.Player>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using sportLeague.Models
+
+@{
+    ViewData["Title"] = "Player";
+}
+
+<h1>Players</h1>
+
+<!-- Search form -->
+<form method="get">
+    <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search by Name or Team">
+    <button type="submit">Search</button>
+    <a href="@Url.Action("Index", "Player")" class="btn btn-secondary">Clear Filter</a>
+
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("First Name", "Index", new { sortOrder = ViewData["FirstNameSortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewData["LastNameSortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th>
+                @Html.ActionLink("Team", "Index", new { sortOrder = ViewData["TeamSortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th>
+                Position
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Team.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PlayerId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PlayerId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PlayerId">Delete</a>
+                </td>
+            </tr>
+}
+    </tbody>
+</table>
+
+<!-- Pagination controls -->
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewData["CurrentSort"], searchString = ViewData["CurrentFilter"] }))
+</div>

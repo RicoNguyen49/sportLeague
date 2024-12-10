@@ -1,0 +1,59 @@
+﻿@model IEnumerable<sportLeague.Models.League>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using sportLeague.Models
+
+
+@{
+    ViewData["Title"] = "League";
+}
+
+<h1>Leagues</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SportType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearFounded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SportType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearFounded)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LeagueId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LeagueId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LeagueId">Delete</a>|
+                <a asp-action="LeagueWithTeams" asp-route-id="@item.LeagueId">View Teams</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

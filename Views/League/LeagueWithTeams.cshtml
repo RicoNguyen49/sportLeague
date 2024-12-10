@@ -1,0 +1,25 @@
+﻿@model sportLeague.Models.ViewModels.LeagueTeamViewModel
+
+<h1>League: @Model.League.Name</h1>
+<p>Country: @Model.League.Country</p>
+<p>Sport Type: @Model.League.SportType</p>
+<p>Year Founded: @Model.League.YearFounded</p>
+
+<h2>Teams in the League</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Team Name</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model.Teams)
+        {
+            <tr>
+                <td>@team.Name</td>
+                <td>@team.City</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,69 @@
+﻿@model X.PagedList.IPagedList<sportLeague.Models.Team>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using sportLeague.Models
+
+@{
+    ViewData["Title"] = "Team";
+}
+
+<h1>Teams</h1>
+
+<!-- Search Form -->
+<form method="get">
+    <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search by Team Name" />
+    <button type="submit">Search</button>
+
+    <a href="@Url.Action("Index", "Team")" class="btn btn-secondary">Clear Filter</a>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Team Name", "Index", new { sortOrder = ViewData["NameSortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th>
+                @Html.ActionLink("City", "Index", new { sortOrder = ViewData["citySortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th>
+               YearEstablished
+            </th>
+            <th>
+                @Html.ActionLink("League", "Index", new { sortOrder = ViewData["leagueSortParm"], searchString = ViewData["CurrentFilter"] })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearEstablished)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.League.Name)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TeamId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TeamId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TeamId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<!-- Pagination -->
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewData["CurrentSort"], searchString = ViewData["CurrentFilter"] }))
+</div>
