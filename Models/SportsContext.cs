@@ -6,9 +6,9 @@ namespace sportLeague.Models
 {
     public class SportsContext : DbContext
     {
-        public DbSet<League> Leagues { get; set; } = null;
-        public DbSet<Team> Teams { get; set; } = null;
-        public DbSet<Player> Players { get; set; } = null;
+        public DbSet<League> Leagues { get; set; } = null!;
+        public DbSet<Team> Teams { get; set; } = null!;
+        public DbSet<Player> Players { get; set; } = null!;
 
         public SportsContext(DbContextOptions<SportsContext> options) : base(options) { }
 

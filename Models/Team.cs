@@ -11,12 +11,12 @@ namespace sportLeague.Models
 
         [Required(ErrorMessage = "Team Name is required.")]
         [StringLength(100, ErrorMessage = "Team Name cannot exceed 100 characters.")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
 
         [Required(ErrorMessage = "City is required.")]
         [StringLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
-        public string City { get; set; }
+        public string? City { get; set; }
 
 
         [Required(ErrorMessage = "Year Established is required.")]
@@ -26,9 +26,9 @@ namespace sportLeague.Models
         [ForeignKey("League")]
         [Required(ErrorMessage = "League is required.")]
         public int LeagueId { get; set; }
-        public League League { get; set; }
+        public League? League { get; set; } 
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<Player> Players { get; set; } = new List<Player>();
 
     }
 
